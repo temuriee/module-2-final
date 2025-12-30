@@ -8,20 +8,24 @@ type FeedbackProps = {
 const SingleFeedback = ({ feedback }: FeedbackProps) => {
   const { mutate, isPending } = useDeleteFeedback();
 
-  const handleDelete = () => {
+  const handleDelete = (e: React.FormEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+
     if (confirm("Are You Sure U Want To Delete This?")) {
       mutate(feedback._id);
     }
   };
 
   return (
-    <div className="min-w-[250px] min-h-[250px] border  rounded-2xl p-3 ">
+    <div className="max-w-[400px] min-h-[200px] max-h-[200px] border  rounded-2xl p-3 ">
       <div>
         <div>
-          <h1>{feedback.name}</h1>
-          <p>{feedback.email}</p>
-          <p>{feedback.message}</p>
+          <h1 className="text-gray-700 font-bold">Name:{feedback.name}</h1>
+          <p>Email:{feedback.email}</p>
+          <p>Description:{feedback.message}</p>
           <button
+            type="button"
             onClick={handleDelete}
             className="text-black bg-red-500 mt-5 p-2 rounded-xl"
           >

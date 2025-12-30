@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { FeedbackInputs, feedbackSchema } from "../schemas/feedbackSchema";
 import { usePostFeedbacks } from "../hooks/usePostFeedback";
 import { useEffect } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useFeedbacks } from "../hooks/useFeedbacks";
 
 const CreateFeedback = () => {
   const {
@@ -22,6 +23,9 @@ const CreateFeedback = () => {
     },
   });
 
+  const { refetch } = useFeedbacks();
+
+  const router = useRouter();
   const { mutate: submitFeedback, isPending, isSuccess } = usePostFeedbacks();
 
   const onSubmit = (data: FeedbackInputs) => {
@@ -35,9 +39,12 @@ const CreateFeedback = () => {
   }, [isSuccess, reset]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="name">Name</label>
+    <form
+      className="border-2 rounded-xl max-w-100 max-h-100 mx-auto space-y-2 p-10  "
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="border rounded-xl p-2">
+        <label htmlFor="name">Name: </label>
         <input
           type="text"
           placeholder="Submit Your Name"
@@ -47,8 +54,8 @@ const CreateFeedback = () => {
           <p className="text-red-500 text-sm">{errors.name.message}</p>
         )}
       </div>
-      <div>
-        <label htmlFor="email">Email</label>
+      <div className="border rounded-xl p-2">
+        <label htmlFor="email">Email: </label>
         <input
           type="email"
           placeholder="Submit Your Email"
@@ -58,8 +65,8 @@ const CreateFeedback = () => {
           <p className="text-red-500 text-sm">{errors.email.message}</p>
         )}
       </div>
-      <div>
-        <label htmlFor="message">Message</label>
+      <div className="border rounded-xl p-2">
+        <label htmlFor="message">Message: </label>
         <input
           type="text"
           placeholder="Submit Your Message"
@@ -72,16 +79,24 @@ const CreateFeedback = () => {
 
       {isSuccess && <div>Thanks Your Message Has Been Sent</div>}
 
-      <button className="block" type="submit" disabled={isPending}>
+      <button
+        className="bg-red-800 border rounded px-2 "
+        type="submit"
+        disabled={isPending}
+      >
         {isPending ? "Sending..." : "Send Message"}
       </button>
 
-      <Link
-        className="rounded bg-cyan-600 ml-[20px] max-w-[160px] max-h-[100px] "
-        href={"/feedbacks"}
+      <button
+        type="button"
+        className="rounded bg-cyan-600 ml-5 max-w-40 max-h-[100px] px-2 "
+        onClick={async () => {
+          await refetch();
+          router.push("/feedbacks");
+        }}
       >
         ⬅️ Main Page
-      </Link>
+      </button>
     </form>
   );
 };

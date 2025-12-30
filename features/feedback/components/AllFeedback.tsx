@@ -23,8 +23,8 @@ const AllFeedback = () => {
   }
 
   return (
-    <div className=" mx-auto flex">
-      <div className="flex gap-10">
+    <div className="mx-auto flex flex-col flex-wrap">
+      <div className="grid-cols-4 grid space-x-2 space-y-2">
         {feedbacks?.map((feedback) => (
           <Link key={feedback._id} href={`/feedbacks/${feedback._id}`}>
             <SingleFeedback feedback={feedback} />
@@ -32,7 +32,7 @@ const AllFeedback = () => {
         ))}
       </div>
       <Link
-        className="rounded bg-cyan-600 ml-[20px] max-w-[160px] max-h-[100px] "
+        className="rounded bg-cyan-600 ml-5 max-w-40 max-h-[100px] p-2 mt-20 "
         href={"/feedbacks/create"}
       >
         Create New Feedback
