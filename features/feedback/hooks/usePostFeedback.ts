@@ -7,7 +7,7 @@ export function usePostFeedbacks() {
   return useMutation({
     mutationFn: (data: FeedbackInputs) => postFeedback(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
+      queryClient.invalidateQueries({ queryKey: ["feedback"] });
     },
   });
 }

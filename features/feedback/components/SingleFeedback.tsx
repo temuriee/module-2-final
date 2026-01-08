@@ -21,7 +21,7 @@ const SingleFeedback = ({ feedback }: FeedbackProps) => {
     <div className="max-w-[400px] min-h-[200px] max-h-[200px] border  rounded-2xl p-3 ">
       <div>
         <div>
-          <h1 className="text-gray-700 font-bold">Name:{feedback.name}</h1>
+          <p className="text-gray-700 font-bold">Name:{feedback.name}</p>
           <p>Email:{feedback.email}</p>
           <p>Description:{feedback.message}</p>
           <button

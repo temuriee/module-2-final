@@ -10,8 +10,6 @@ const FeedbackId = () => {
 
   const { data, isLoading, error } = useSingleFeedback(feedbackId);
 
-  console.log(data);
-
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading feedback</p>;
 

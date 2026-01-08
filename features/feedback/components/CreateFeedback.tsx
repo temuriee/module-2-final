@@ -23,20 +23,13 @@ const CreateFeedback = () => {
     },
   });
 
-  const { refetch } = useFeedbacks();
-
   const router = useRouter();
   const { mutate: submitFeedback, isPending, isSuccess } = usePostFeedbacks();
 
   const onSubmit = (data: FeedbackInputs) => {
     submitFeedback(data);
+    reset();
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      reset();
-    }
-  }, [isSuccess, reset]);
 
   return (
     <form
@@ -91,7 +84,6 @@ const CreateFeedback = () => {
         type="button"
         className="rounded bg-cyan-600 ml-5 max-w-40 max-h-[100px] px-2 "
         onClick={async () => {
-          await refetch();
           router.push("/feedbacks");
         }}
       >
